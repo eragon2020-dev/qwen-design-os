@@ -2,6 +2,39 @@
 
 You are helping the user export their complete product design as a handoff package for implementation. This generates all files needed to integrate the UI designs into a real codebase.
 
+## Quick Generate Commands
+
+**FASTEST** — Generate a production-ready Laravel app instantly with Laravel Boost for AI-assisted development:
+
+### ⚡ Quick Generate Commands
+
+| | Framework | Description |
+|---|-----------|-------------|
+| **FASTEST** | **Laravel + Laravel Boost** | Instant generation with pre-configured settings. One command, done. |
+| **A** | **React** | Portable React components with props-based API. |
+| **B** | **Laravel Livewire** | Livewire v4 components and Blade views for Laravel 13+. |
+| **C** | **Laravel Inertia + Vue 3** | Full-stack SPA with Vue 3 Composition API. |
+| **D** | **Laravel Inertia + React** | Full-stack SPA with React 18+ Hooks. |
+| **E** | **Laravel Inertia + Svelte** | Full-stack SPA with Svelte 4+. |
+
+### Generate Commands
+
+```bash
+# FASTEST: Laravel with Laravel Boost (recommended)
+/generate-product-laravel-boost
+
+# Or choose your stack:
+/generate-product-react            # A: Portable React
+/generate-product-livewire         # B: Laravel Livewire v4
+/generate-product-inertia-vue      # C: Laravel Inertia + Vue 3
+/generate-product-inertia-react    # D: Laravel Inertia + React
+/generate-product-inertia-svelte   # E: Laravel Inertia + Svelte
+```
+
+**How to use:** Copy any command above and run it in your AI coding agent. The export will be generated instantly with no additional questions.
+
+---
+
 ## Step 0: Ask About Target Framework
 
 Before generating the export, ask the user:
