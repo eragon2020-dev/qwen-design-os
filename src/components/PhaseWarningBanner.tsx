@@ -17,7 +17,7 @@ function getStorageKey(productName: string): string {
 
 export function PhaseWarningBanner() {
   const productData = useMemo(() => loadProductData(), [])
-  const [isDismissed, setIsDismissed] = useState(true) // Start dismissed to avoid flash
+  const [isDismissed, setIsDismissed] = useState(false)
 
   const hasDataShape = !!productData.dataShape
   const hasDesignSystem = !!(productData.designSystem?.colors || productData.designSystem?.typography)
@@ -27,10 +27,9 @@ export function PhaseWarningBanner() {
   const productName = productData.overview?.name || 'default-product'
   const storageKey = getStorageKey(productName)
 
-  // Check localStorage on mount
-  useEffect(() => {
-    const dismissed = localStorage.getItem(storageKey) === 'true'
-    setIsDismissed(dismissed)
+  // Check localStorage on mount and update state if needed
+  const checkedDismissed = useMemo(() => {
+    return localStorage.getItem(storageKey) === 'true'
   }, [storageKey])
 
   const handleDismiss = () => {
@@ -39,7 +38,7 @@ export function PhaseWarningBanner() {
   }
 
   // Don't show if both phases are complete or if dismissed
-  if ((hasDataShape && hasDesign) || isDismissed) {
+  if ((hasDataShape && hasDesign) || checkedDismissed) {
     return null
   }
 

@@ -1,5 +1,7 @@
 # Agent Directives for Design OS
 
+> **Note for Qwen Users**: This Design OS setup is configured for Qwen. All commands are available in `.qwen/commands/design-os/`. Use `/command-name` to run them (e.g., `/product-vision`, `/design-screen`).
+
 Design OS is a **product planning and design tool** that helps users define their product vision, sketch out their data shape, design their UI, and prepare export packages for implementation in a separate codebase.
 
 > **Important**: Design OS is a planning tool, not the end product codebase. The screen designs and components generated here are meant to be exported and integrated into your actual product's codebase.

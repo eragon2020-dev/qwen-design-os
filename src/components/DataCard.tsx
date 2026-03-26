@@ -4,17 +4,12 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { ChevronDown } from 'lucide-react'
 import { EmptyState } from '@/components/EmptyState'
 
-interface DataMeta {
-  models: Record<string, string>
-  relationships: string[]
-}
-
 interface DataCardProps {
   data: Record<string, unknown> | null
 }
 
-function extractMeta(data: Record<string, unknown>): DataMeta | null {
-  const meta = data._meta as DataMeta | undefined
+function extractMeta(data: Record<string, unknown>): { models: Record<string, string>; relationships: string[] } | null {
+  const meta = data._meta as { models: Record<string, string>; relationships: string[] } | undefined
   if (meta && typeof meta === 'object' && meta.models && meta.relationships) {
     return meta
   }
@@ -22,6 +17,7 @@ function extractMeta(data: Record<string, unknown>): DataMeta | null {
 }
 
 function getDataWithoutMeta(data: Record<string, unknown>): Record<string, unknown> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { _meta, ...rest } = data
   return rest
 }
