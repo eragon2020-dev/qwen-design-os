@@ -8,7 +8,9 @@
       "Bash(curl *)",
       "Bash(find *)",
       "Bash(rm *)",
-      "Bash(npx *)"
+      "Bash(npx *)",
+      "WebSearch",
+      "WebFetch(claude.com)"
     ]
   },
   "$version": 3

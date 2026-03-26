@@ -2692,6 +2692,35 @@ This folder contains everything needed to implement [Product Name].
 - `shell/` — Application shell components
 - `sections/` — All section components, types, sample data, and test specs
 
+## Quick Start: Generate a Production-Ready App
+
+**Want to skip manual implementation?** Use the Generate Product commands to automatically create a complete Laravel application with Laravel Boost for AI-assisted development:
+
+```bash
+# Recommended: Laravel with Laravel Boost
+/generate-product-laravel-boost
+
+# Or choose your stack:
+/generate-product-livewire         # Laravel Livewire v4
+/generate-product-inertia-react    # Laravel Inertia 3 + React
+/generate-product-inertia-vue      # Laravel Inertia 3 + Vue 3
+/generate-product-inertia-svelte   # Laravel Inertia 3 + Svelte
+/generate-product-react            # Portable React components
+```
+
+These commands:
+- Create a new Laravel app with your custom name
+- Install all dependencies (Composer, npm)
+- Set up Laravel Boost MCP server for AI assistance
+- Configure environment and database
+- Run initial migrations
+
+Then copy your `product-plan/` export to the new app and use the prompts to implement features with AI assistance.
+
+See `/generate-product-laravel-boost` for full details.
+
+---
+
 ## How to Use This
 
 ### Option A: Incremental (Recommended)
@@ -2772,6 +2801,24 @@ This folder contains everything needed to implement [Product Name] as a Laravel 
 - Livewire v4
 - Tailwind CSS v4
 - MySQL, PostgreSQL, or SQLite
+
+## Quick Start: Generate Instead
+
+**Don't want to implement manually?** Use the Generate Product commands:
+
+```bash
+# Generate Laravel app with Laravel Boost (recommended)
+/generate-product-laravel-boost
+
+# Or generate Livewire export directly
+/generate-product-livewire
+```
+
+These commands create a complete Laravel application automatically. Then copy your `product-plan/` export and use the prompts to implement features with AI assistance.
+
+See `/generate-product-laravel-boost` for full details.
+
+---
 
 ## How to Use This
 
@@ -2888,6 +2935,26 @@ This folder contains everything needed to implement [Product Name] as a Laravel 
 - Frontend: Vue 3 + Vite, OR React 18+ + Vite, OR Svelte 4+ + Vite
 - Tailwind CSS v4
 - MySQL, PostgreSQL, or SQLite
+
+## Quick Start: Generate Instead
+
+**Don't want to implement manually?** Use the Generate Product commands:
+
+```bash
+# Generate Laravel app with Laravel Boost (recommended)
+/generate-product-laravel-boost
+
+# Or generate Inertia export directly:
+/generate-product-inertia-react    # React frontend
+/generate-product-inertia-vue      # Vue 3 frontend
+/generate-product-inertia-svelte   # Svelte frontend
+```
+
+These commands create a complete Laravel application automatically. Then copy your `product-plan/` export and use the prompts to implement features with AI assistance.
+
+See `/generate-product-laravel-boost` for full details.
+
+---
 
 ## How to Use This
 
@@ -3142,6 +3209,18 @@ Restart your dev server and visit the Export page to download `product-plan.zip`
 The Inertia pages follow Laravel conventions — controllers return `Inertia::render()` with props, and pages receive data through props. How you architect Eloquent relationships, business logic, and authorization is up to you."
 
 ## Important Notes
+
+**Prefer to Generate Instead of Manual Implementation?**
+
+Use the Generate Product commands to automatically create a complete Laravel application:
+- `/generate-product-laravel-boost` — Laravel app with Laravel Boost for AI assistance (recommended)
+- `/generate-product-livewire` — Laravel Livewire v4 export
+- `/generate-product-inertia-react` — Laravel Inertia 3 + React
+- `/generate-product-inertia-vue` — Laravel Inertia 3 + Vue 3
+- `/generate-product-inertia-svelte` — Laravel Inertia 3 + Svelte
+- `/generate-product-react` — Portable React components
+
+See `/generate-product-laravel-boost` for full details on AI-assisted Laravel development.
 
 **For React:**
 - Always transform import paths when copying components

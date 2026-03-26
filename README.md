@@ -18,8 +18,27 @@ Design OS powers a guided design and architecture process. You + AI, working tog
 2. **Design System** — Choose colors, typography, and design your application shell
 3. **Section Design** — For each feature area: specify requirements, generate sample data, and design the screens
 4. **Export** — Generate a complete handoff package for implementation
+5. **Generate** — Automatically create production-ready Laravel apps with Laravel Boost for AI-assisted development
 
 Each step is a conversation. The AI asks questions, you provide direction, and together you shape a product that matches your vision—before any implementation begins.
+
+### From Design to Code in One Command
+
+Once your designs are complete, generate a production-grade Laravel application automatically:
+
+```bash
+# Recommended: Laravel with Laravel Boost for AI-assisted development
+/generate-product-laravel-boost
+
+# Or choose your stack:
+/generate-product-livewire         # Laravel Livewire v4
+/generate-product-inertia-react    # Laravel Inertia 3 + React
+/generate-product-inertia-vue      # Laravel Inertia 3 + Vue 3
+/generate-product-inertia-svelte   # Laravel Inertia 3 + Svelte
+/generate-product-react            # Portable React components
+```
+
+The generate commands create a complete Laravel application with your custom app name, install Laravel Boost for intelligent AI assistance, and prepare everything for implementation. Your AI coding agent can then build features from your export package with Laravel Boost providing context-aware Laravel expertise.
 
 ---
 

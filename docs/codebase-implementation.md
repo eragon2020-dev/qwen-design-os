@@ -2,6 +2,37 @@
 
 After exporting your designs from Design OS, you have a complete handoff package ready for implementation. This guide covers how to work with your AI coding agent to build the product.
 
+## Quick Start: Generate a Production-Ready App
+
+**Want to skip manual implementation?** Use the Generate Product commands to automatically create a complete Laravel application:
+
+```bash
+# Laravel with Laravel Boost (recommended for AI-assisted development)
+/generate-product-laravel-boost
+
+# Laravel Livewire
+/generate-product-livewire
+
+# Laravel Inertia 3
+/generate-product-inertia-react    # React frontend
+/generate-product-inertia-vue      # Vue frontend
+/generate-product-inertia-svelte   # Svelte frontend
+
+# React (portable)
+/generate-product-react
+```
+
+These commands:
+- Create a new Laravel app with your custom name
+- Install all dependencies
+- Set up Laravel Boost MCP server (for AI assistance)
+- Configure environment and database
+- Ready your AI assistant to implement features from your export package
+
+See [Export](export.md#quick-start-generate-a-production-ready-app) for full details.
+
+---
+
 ## Getting Started
 
 1. Copy the `product-plan/` folder into your target codebase
