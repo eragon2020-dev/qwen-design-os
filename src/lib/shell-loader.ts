@@ -89,16 +89,7 @@ export function hasShellComponents(): boolean {
   // Check if AppShell.tsx or ShellWrapper.tsx exists
   const appShellExists = '/src/shell/components/AppShell.tsx' in shellComponentModules
   const shellWrapperExists = '/src/shell/components/ShellWrapper.tsx' in shellComponentModules
-  const exists = appShellExists || shellWrapperExists
-  
-  // Debug: log available shell components
-  console.log('[Shell] hasShellComponents check:', {
-    exists,
-    appShellExists,
-    shellWrapperExists,
-    availableComponents: Object.keys(shellComponentModules),
-  })
-  return exists
+  return appShellExists || shellWrapperExists
 }
 
 /**
@@ -131,17 +122,7 @@ export function loadAppShell(): (() => Promise<{ default: ComponentType<{ childr
  * Load shell preview wrapper dynamically
  */
 export function loadShellPreview(): (() => Promise<{ default: ComponentType }>) | null {
-  const loader = shellPreviewModules['/src/shell/ShellPreview.tsx']
-  
-  // Debug: log if preview not found
-  if (!loader) {
-    console.log('[Shell] ShellPreview not found:', {
-      lookingFor: '/src/shell/ShellPreview.tsx',
-      availablePreviews: Object.keys(shellPreviewModules),
-    })
-  }
-  
-  return loader || null
+  return shellPreviewModules['/src/shell/ShellPreview.tsx'] || null
 }
 
 /**
@@ -152,23 +133,8 @@ export function loadShellInfo(): ShellInfo | null {
   const spec = specContent ? parseShellSpec(specContent) : null
   const hasComponents = hasShellComponents()
 
-  // Debug: log shell loading status
-  console.log('[Shell] loadShellInfo:', {
-    hasSpecFile: '/product/shell/spec.md' in shellSpecFiles,
-    specContentLength: specContent?.length ?? 0,
-    specParsed: !!spec,
-    hasComponents,
-    availableSpecFiles: Object.keys(shellSpecFiles),
-  })
-
   // Return null if neither spec nor components exist
   if (!spec && !hasComponents) {
-    console.warn(
-      '[Shell] Shell not loaded. If you just created shell files, please restart the dev server.\n' +
-      '  - Spec file exists: ' + ('/product/shell/spec.md' in shellSpecFiles) + '\n' +
-      '  - Components exist: ' + hasComponents + '\n' +
-      '  - Run: npm run dev (after stopping with Ctrl+C)'
-    )
     return null
   }
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { AlertTriangle, X } from 'lucide-react'
 import { loadProductData } from '@/lib/product-loader'
@@ -17,7 +17,6 @@ function getStorageKey(productName: string): string {
 
 export function PhaseWarningBanner() {
   const productData = useMemo(() => loadProductData(), [])
-  const [isDismissed, setIsDismissed] = useState(false)
 
   const hasDataShape = !!productData.dataShape
   const hasDesignSystem = !!(productData.designSystem?.colors || productData.designSystem?.typography)
@@ -25,12 +24,10 @@ export function PhaseWarningBanner() {
   const hasDesign = hasDesignSystem || hasShell
 
   const productName = productData.overview?.name || 'default-product'
-  const storageKey = getStorageKey(productName)
+  const storageKey = useMemo(() => getStorageKey(productName), [productName])
 
-  // Check localStorage on mount and update state if needed
-  const checkedDismissed = useMemo(() => {
-    return localStorage.getItem(storageKey) === 'true'
-  }, [storageKey])
+  // Use lazy initializer to read from localStorage once
+  const [isDismissed, setIsDismissed] = useState(() => localStorage.getItem(storageKey) === 'true')
 
   const handleDismiss = () => {
     localStorage.setItem(storageKey, 'true')
@@ -38,7 +35,7 @@ export function PhaseWarningBanner() {
   }
 
   // Don't show if both phases are complete or if dismissed
-  if ((hasDataShape && hasDesign) || checkedDismissed) {
+  if ((hasDataShape && hasDesign) || isDismissed) {
     return null
   }
 

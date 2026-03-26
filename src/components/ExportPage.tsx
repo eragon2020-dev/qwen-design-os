@@ -1,5 +1,5 @@
-import { useMemo } from 'react'
-import { Check, AlertTriangle, FileText, FolderTree, ChevronDown, Download, Package } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { Check, AlertTriangle, FileText, FolderTree, ChevronDown, Download, Package, Code, FileCode } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { AppLayout } from '@/components/AppLayout'
@@ -8,6 +8,7 @@ import { getAllSectionIds, getSectionScreenDesigns } from '@/lib/section-loader'
 
 export function ExportPage() {
   const productData = useMemo(() => loadProductData(), [])
+  const [selectedFramework, setSelectedFramework] = useState<'react' | 'laravel'>('react')
 
   // Get section stats
   const sectionStats = useMemo(() => {
@@ -81,6 +82,87 @@ export function ExportPage() {
                   label={`Sections with screen designs (${sectionStats.sectionsWithScreenDesigns}/${sectionStats.sectionCount})`}
                   isComplete={hasSections}
                 />
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Framework Selection */}
+        {requiredComplete && !exportZipAvailable && (
+          <Card className="border-stone-200 dark:border-stone-700 shadow-sm">
+            <CardHeader>
+              <CardTitle className="text-lg font-semibold text-stone-900 dark:text-stone-100">
+                Select Target Framework
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-stone-600 dark:text-stone-400 mb-4">
+                Choose which framework you want to export your designs for. This affects the component format and implementation instructions.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-3">
+                <button
+                  onClick={() => setSelectedFramework('react')}
+                  className={`flex items-start gap-3 p-4 rounded-lg border-2 text-left transition-all ${
+                    selectedFramework === 'react'
+                      ? 'border-lime-600 bg-lime-50 dark:bg-lime-900/20 dark:border-lime-500'
+                      : 'border-stone-200 dark:border-stone-700 hover:border-stone-300 dark:hover:border-stone-600'
+                  }`}
+                >
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
+                    selectedFramework === 'react'
+                      ? 'bg-lime-100 dark:bg-lime-900/40'
+                      : 'bg-stone-100 dark:bg-stone-800'
+                  }`}>
+                    <Code className={`w-5 h-5 ${
+                      selectedFramework === 'react'
+                        ? 'text-lime-600 dark:text-lime-400'
+                        : 'text-stone-500 dark:text-stone-400'
+                    }`} strokeWidth={1.5} />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-medium text-stone-900 dark:text-stone-100">React</h4>
+                    <p className="text-sm text-stone-600 dark:text-stone-400 mt-1">
+                      Portable React components with props-based API. Works with any React setup.
+                    </p>
+                  </div>
+                  {selectedFramework === 'react' && (
+                    <div className="w-5 h-5 rounded-full bg-lime-600 flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3 text-white" strokeWidth={3} />
+                    </div>
+                  )}
+                </button>
+
+                <button
+                  onClick={() => setSelectedFramework('laravel')}
+                  className={`flex items-start gap-3 p-4 rounded-lg border-2 text-left transition-all ${
+                    selectedFramework === 'laravel'
+                      ? 'border-red-600 bg-red-50 dark:bg-red-900/20 dark:border-red-500'
+                      : 'border-stone-200 dark:border-stone-700 hover:border-stone-300 dark:hover:border-stone-600'
+                  }`}
+                >
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
+                    selectedFramework === 'laravel'
+                      ? 'bg-red-100 dark:bg-red-900/40'
+                      : 'bg-stone-100 dark:bg-stone-800'
+                  }`}>
+                    <FileCode className={`w-5 h-5 ${
+                      selectedFramework === 'laravel'
+                        ? 'text-red-600 dark:text-red-400'
+                        : 'text-stone-500 dark:text-stone-400'
+                    }`} strokeWidth={1.5} />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-medium text-stone-900 dark:text-stone-100">Laravel Livewire</h4>
+                    <p className="text-sm text-stone-600 dark:text-stone-400 mt-1">
+                      Livewire v4 components and Blade views for Laravel 13+ applications.
+                    </p>
+                  </div>
+                  {selectedFramework === 'laravel' && (
+                    <div className="w-5 h-5 rounded-full bg-red-600 flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3 text-white" strokeWidth={3} />
+                    </div>
+                  )}
+                </button>
               </div>
             </CardContent>
           </Card>
@@ -169,12 +251,21 @@ export function ExportPage() {
                   <ExportItem
                     title="Data Shape"
                     description="Entity definitions and sample data for your application."
-                    items={['TypeScript types', 'Sample data', 'Entity docs']}
+                    items={selectedFramework === 'react' 
+                      ? ['TypeScript types', 'Sample data', 'Entity docs']
+                      : ['PHP classes', 'Sample data', 'Entity docs']
+                    }
                   />
                   <ExportItem
                     title="Components"
-                    description="React components and visual references for each section."
-                    items={['Shell components', 'Section components', 'Screenshots']}
+                    description={selectedFramework === 'react'
+                      ? 'React components and visual references for each section.'
+                      : 'Livewire components, Blade views, and visual references.'
+                    }
+                    items={selectedFramework === 'react'
+                      ? ['Shell components', 'Section components', 'Screenshots']
+                      : ['Livewire classes', 'Blade views', 'Screenshots']
+                    }
                   />
                   <ExportItem
                     title="Test Instructions"
@@ -210,28 +301,58 @@ export function ExportPage() {
                 <ChevronDown className="w-4 h-4 text-stone-400 dark:text-stone-500 mt-1 shrink-0 transition-transform group-data-[state=open]:rotate-180" strokeWidth={1.5} />
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <ol className="text-sm text-stone-600 dark:text-stone-400 space-y-2 list-decimal list-inside mt-4 pl-1">
-                  <li>Copy the <code className="font-mono text-stone-800 dark:text-stone-200">product-plan/</code> folder into your codebase</li>
-                  <li>Start with Shell (<code className="font-mono text-stone-800 dark:text-stone-200">instructions/incremental/01-shell.md</code>) — design tokens + app shell</li>
-                  <li>
-                    For each section:
-                    <ul className="mt-1.5 ml-5 space-y-1">
-                      <li className="flex items-center gap-2">
-                        <span className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-500" />
-                        Open <code className="font-mono text-stone-800 dark:text-stone-200">prompts/section-prompt.md</code>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-500" />
-                        Fill in the section variables at the top (SECTION_NAME, SECTION_ID, NN)
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-500" />
-                        Copy/paste the prompt into your AI coding agent
-                      </li>
-                    </ul>
-                  </li>
-                  <li>Review and test after each milestone before moving to the next</li>
-                </ol>
+                {selectedFramework === 'react' ? (
+                  <ol className="text-sm text-stone-600 dark:text-stone-400 space-y-2 list-decimal list-inside mt-4 pl-1">
+                    <li>Copy the <code className="font-mono text-stone-800 dark:text-stone-200">product-plan/</code> folder into your codebase</li>
+                    <li>Start with Shell (<code className="font-mono text-stone-800 dark:text-stone-200">instructions/incremental/01-shell.md</code>) — design tokens + app shell</li>
+                    <li>
+                      For each section:
+                      <ul className="mt-1.5 ml-5 space-y-1">
+                        <li className="flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-500" />
+                          Open <code className="font-mono text-stone-800 dark:text-stone-200">prompts/section-prompt.md</code>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-500" />
+                          Fill in the section variables at the top (SECTION_NAME, SECTION_ID, NN)
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-500" />
+                          Copy/paste the prompt into your AI coding agent
+                        </li>
+                      </ul>
+                    </li>
+                    <li>Review and test after each milestone before moving to the next</li>
+                  </ol>
+                ) : (
+                  <ol className="text-sm text-stone-600 dark:text-stone-400 space-y-2 list-decimal list-inside mt-4 pl-1">
+                    <li>Copy the <code className="font-mono text-stone-800 dark:text-stone-200">product-plan/</code> folder to your Laravel project root</li>
+                    <li>Start with Shell (<code className="font-mono text-stone-800 dark:text-stone-200">instructions/incremental/01-shell.md</code>) — design tokens + Livewire shell</li>
+                    <li>
+                      For each section:
+                      <ul className="mt-1.5 ml-5 space-y-1">
+                        <li className="flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-500" />
+                          Open <code className="font-mono text-stone-800 dark:text-stone-200">prompts/section-prompt.md</code>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-500" />
+                          Fill in the section variables (SECTION_NAME, SECTION_ID, NN)
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-500" />
+                          Copy/paste into your AI coding agent
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-500" />
+                          Answer questions about Eloquent models, routes, and authorization
+                        </li>
+                      </ul>
+                    </li>
+                    <li>Run migrations: <code className="font-mono text-stone-800 dark:text-stone-200">php artisan migrate</code></li>
+                    <li>Review and test after each milestone</li>
+                  </ol>
+                )}
               </CollapsibleContent>
             </Collapsible>
 
@@ -251,14 +372,45 @@ export function ExportPage() {
                 <ChevronDown className="w-4 h-4 text-stone-400 dark:text-stone-500 mt-1 shrink-0 transition-transform group-data-[state=open]:rotate-180" strokeWidth={1.5} />
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <ol className="text-sm text-stone-600 dark:text-stone-400 space-y-2 list-decimal list-inside mt-4 pl-1">
-                  <li>Copy the <code className="font-mono text-stone-800 dark:text-stone-200">product-plan/</code> folder into your codebase</li>
-                  <li>Open <code className="font-mono text-stone-800 dark:text-stone-200">prompts/one-shot-prompt.md</code></li>
-                  <li>Add any additional notes to the prompt (tech stack preferences, etc.)</li>
-                  <li>Copy/paste the prompt into your AI coding agent</li>
-                  <li>Answer the agent's clarifying questions about auth, user modeling, etc.</li>
-                  <li>Let the agent plan and implement everything</li>
-                </ol>
+                {selectedFramework === 'react' ? (
+                  <ol className="text-sm text-stone-600 dark:text-stone-400 space-y-2 list-decimal list-inside mt-4 pl-1">
+                    <li>Copy the <code className="font-mono text-stone-800 dark:text-stone-200">product-plan/</code> folder into your codebase</li>
+                    <li>Open <code className="font-mono text-stone-800 dark:text-stone-200">prompts/one-shot-prompt.md</code></li>
+                    <li>Add any additional notes to the prompt (tech stack preferences, etc.)</li>
+                    <li>Copy/paste the prompt into your AI coding agent</li>
+                    <li>Answer the agent's clarifying questions about auth, user modeling, etc.</li>
+                    <li>Let the agent plan and implement everything</li>
+                  </ol>
+                ) : (
+                  <ol className="text-sm text-stone-600 dark:text-stone-400 space-y-2 list-decimal list-inside mt-4 pl-1">
+                    <li>Copy the <code className="font-mono text-stone-800 dark:text-stone-200">product-plan/</code> folder to your Laravel project root</li>
+                    <li>Open <code className="font-mono text-stone-800 dark:text-stone-200">prompts/one-shot-prompt.md</code> (Laravel Livewire version)</li>
+                    <li>Add notes about your setup (Laravel version, database, auth system)</li>
+                    <li>Copy/paste the prompt into your AI coding agent</li>
+                    <li>Answer questions about:
+                      <ul className="mt-1.5 ml-5 space-y-1">
+                        <li className="flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-500" />
+                          Laravel version and existing setup
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-500" />
+                          Database choice and migrations
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-500" />
+                          Authentication (Breeze, Jetstream, Fortify, or custom)
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <span className="w-1 h-1 rounded-full bg-stone-400 dark:bg-stone-500" />
+                          Authorization policies
+                        </li>
+                      </ul>
+                    </li>
+                    <li>Let the agent plan and implement everything</li>
+                    <li>Run migrations: <code className="font-mono text-stone-800 dark:text-stone-200">php artisan migrate</code></li>
+                  </ol>
+                )}
               </CollapsibleContent>
             </Collapsible>
           </CardContent>

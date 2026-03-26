@@ -196,6 +196,7 @@ export function ScreenDesignFullscreen() {
   const { sectionId, screenDesignName } = useParams<{ sectionId: string; screenDesignName: string }>()
 
   // Load screen design component
+   
   const ScreenDesignComponent = useMemo(() => {
     if (!sectionId || !screenDesignName) return null
     const loader = loadScreenDesignComponent(sectionId, screenDesignName)
@@ -217,6 +218,7 @@ export function ScreenDesignFullscreen() {
   }, [sectionId, screenDesignName])
 
   // Load AppShell component if it exists AND this section uses the shell
+   
   const AppShellComponent = useMemo(() => {
     // Check if this section should use the shell (based on spec.md config)
     if (sectionId && !sectionUsesShell(sectionId)) {
@@ -348,7 +350,9 @@ export function ScreenDesignFullscreen() {
           </div>
         }
       >
+        {/* eslint-disable-next-line react-hooks/static-components */}
         <AppShellComponent>
+          {/* eslint-disable-next-line react-hooks/static-components */}
           <ScreenDesignComponent />
         </AppShellComponent>
       </Suspense>
@@ -364,6 +368,7 @@ export function ScreenDesignFullscreen() {
         </div>
       }
     >
+      {/* eslint-disable-next-line react-hooks/static-components */}
       <ScreenDesignComponent />
     </Suspense>
   )

@@ -181,6 +181,7 @@ export function ShellDesignPage() {
 export function ShellDesignFullscreen() {
   const shellPreviewLoader = loadShellPreview()
 
+   
   const ShellPreviewComponent = useMemo(() => {
     if (!shellPreviewLoader) return null
     return React.lazy(shellPreviewLoader)
@@ -222,17 +223,8 @@ export function ShellDesignFullscreen() {
 
   if (!ShellPreviewComponent) {
     return (
-      <div className="h-screen flex items-center justify-center bg-background p-8">
-        <div className="max-w-md text-center space-y-4">
-          <p className="text-stone-600 dark:text-stone-400">Shell preview not found.</p>
-          <div className="bg-stone-100 dark:bg-stone-800 rounded-md px-4 py-3 text-left text-sm">
-            <p className="text-stone-700 dark:text-stone-300 font-medium mb-2">To fix this:</p>
-            <ol className="list-decimal list-inside space-y-1 text-stone-600 dark:text-stone-400">
-              <li>Run <code className="bg-stone-200 dark:bg-stone-700 px-1.5 py-0.5 rounded">/design-shell</code> to create the shell</li>
-              <li>Restart the dev server (Ctrl+C, then <code className="bg-stone-200 dark:bg-stone-700 px-1.5 py-0.5 rounded">npm run dev</code>)</li>
-            </ol>
-          </div>
-        </div>
+      <div className="h-screen flex items-center justify-center bg-background">
+        <p className="text-stone-600 dark:text-stone-400">Shell preview not found.</p>
       </div>
     )
   }
@@ -245,6 +237,7 @@ export function ShellDesignFullscreen() {
         </div>
       }
     >
+      {/* eslint-disable-next-line react-hooks/static-components */}
       <ShellPreviewComponent />
     </Suspense>
   )

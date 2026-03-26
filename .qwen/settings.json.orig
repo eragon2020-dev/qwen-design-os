@@ -10,6 +10,5 @@
       "Bash(rm *)",
       "Bash(npx *)"
     ]
-  },
-  "$version": 3
+  }
 }

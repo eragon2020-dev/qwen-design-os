@@ -35,7 +35,8 @@ export function SectionsPage() {
   const navigate = useNavigate()
   const productData = useMemo(() => loadProductData(), [])
 
-  const sections = productData.roadmap?.sections || []
+  // Wrap sections in useMemo to prevent dependency warnings
+  const sections = useMemo(() => productData.roadmap?.sections || [], [productData.roadmap?.sections])
 
   // Calculate progress for each section
   const sectionProgressMap = useMemo(() => {

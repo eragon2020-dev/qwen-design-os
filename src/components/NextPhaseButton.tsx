@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { FileText, Boxes, Layout, LayoutList, Package, ArrowRight } from 'lucide-react'
-import type { Phase } from './PhaseNav'
+import type { Phase } from '@/lib/phases'
 
 interface NextPhaseButtonProps {
   nextPhase: Exclude<Phase, 'product'> // Can't navigate "next" to product since it's first
