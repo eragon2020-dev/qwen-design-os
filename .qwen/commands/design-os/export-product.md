@@ -10,10 +10,22 @@ Before generating the export, ask the user:
 
 1. **React** (default) — Portable React components with props-based API
 2. **Laravel Livewire** — Blade components with Livewire v4 classes for Laravel 13+
+3. **Laravel Inertia 3** — Full-stack SPA with Laravel backend and modern frontend
+   - Vue 3 with Composition API
+   - React 18+ with Hooks
+   - Svelte 4+
 
-Type `react` or `laravel` (or just press Enter for React)."
+Type `react`, `livewire`, or `inertia` (or just press Enter for React).
 
-Store their choice as `TARGET_FRAMEWORK`. Default to `react` if not specified.
+If selecting Inertia, also ask:
+"Which frontend framework for Inertia?
+1. **Vue 3** — Composition API with `<script setup>`
+2. **React** — Hooks and functional components
+3. **Svelte** — Svelte 4+ with stores
+
+Type `vue`, `react`, or `svelte`."
+
+Store their choices as `TARGET_FRAMEWORK` and `INERTIA_FRONTEND`. Default to `react` if not specified.
 
 ## Step 1: Check Prerequisites
 
@@ -171,6 +183,62 @@ product-plan/
         └── screenshot.png (if exists)
 ```
 
+For **Laravel Inertia 3** (TARGET_FRAMEWORK = inertia, INERTIA_FRONTEND = vue|react|svelte):
+
+```
+product-plan/
+├── README.md                    # Quick start guide
+├── product-overview.md          # Product summary (always provide)
+│
+├── prompts/                     # Ready-to-use prompts for coding agents
+│   ├── one-shot-prompt.md       # Prompt for full implementation
+│   └── section-prompt.md        # Prompt template for section-by-section
+│
+├── instructions/                # Implementation instructions
+│   ├── one-shot-instructions.md # All milestones combined
+│   └── incremental/             # For milestone-by-milestone implementation
+│       ├── 01-shell.md
+│       ├── 02-[first-section].md
+│       ├── 03-[second-section].md
+│       └── ...
+│
+├── design-system/               # Design tokens
+│   ├── tokens.css
+│   ├── tailwind-colors.md
+│   └── fonts.md
+│
+├── data-shapes/                 # UI data contracts
+│   ├── README.md
+│   └── overview.[ts|d.ts]       # TypeScript types (framework-specific)
+│
+├── shell/                       # Shell components
+│   ├── README.md
+│   ├── controllers/             # Laravel controllers
+│   │   └── AppShellController.php
+│   ├── layouts/                 # Inertia layout components
+│   │   ├── AppLayout.[vue|tsx|svelte]
+│   │   └── ...
+│   └── screenshot.png (if exists)
+│
+└── sections/                    # Section components
+    └── [section-id]/
+        ├── README.md
+        ├── tests.md               # UI behavior test specs
+        ├── controllers/           # Laravel controllers
+        │   ├── [Section]Controller.php
+        │   └── ...
+        ├── pages/                 # Inertia page components
+        │   ├── [Section]Index.[vue|tsx|svelte]
+        │   ├── [Section]Show.[vue|tsx|svelte]
+        │   └── ...
+        ├── components/            # Reusable UI components
+        │   ├── [Component].[vue|tsx|svelte]
+        │   └── index.[ts|js]
+        ├── types.[ts|d.ts]        # TypeScript interfaces
+        ├── sample-data.json
+        └── screenshot.png (if exists)
+```
+
 ## Step 4: Generate product-overview.md
 
 Create `product-plan/product-overview.md`:
@@ -220,7 +288,7 @@ Each milestone has a dedicated instruction document in `product-plan/instruction
 
 ## Export Format
 
-**Target Framework:** [React or Laravel Livewire]
+**Target Framework:** [React, Laravel Livewire, or Laravel Inertia 3]
 
 [If Laravel Livewire:]
 This export includes:
@@ -228,6 +296,14 @@ This export includes:
 - **Blade templates** — Full-scope views with Tailwind CSS styling
 - **PHP type definitions** — Data contracts as PHP interfaces/classes
 - **Laravel 13+ conventions** — Using modern Laravel and Livewire best practices
+
+[If Laravel Inertia 3:]
+This export includes:
+- **Laravel controllers** — RESTful controllers handling data and returning Inertia responses
+- **Inertia page components** — Full-page components ([Vue/React/Svelte]) with client-side routing
+- **Reusable UI components** — Modular components for forms, lists, cards, etc.
+- **TypeScript types** — Shared type definitions for frontend data contracts
+- **Inertia v3 conventions** — Using modern Inertia patterns with Laravel 13+
 ```
 
 ## Step 5: Generate Milestone Instructions
@@ -278,6 +354,31 @@ The components are props-based — they accept data and fire callbacks. How you 
 - Implement loading, error, and empty states
 
 The components follow Livewire conventions — they have public properties for data and methods for actions. How you architect the backend, data layer, and business logic is up to you.
+
+---
+```
+
+**For Laravel Inertia 3:**
+```markdown
+---
+
+## About This Handoff
+
+**What you're receiving:**
+- Finished UI designs (Inertia v3 pages with [Vue/React/Svelte] components)
+- Product requirements and user flow specifications
+- Design system tokens (colors, typography)
+- Sample data showing the shape of data components expect
+- Test specs focused on user-facing behavior
+
+**Your job:**
+- Integrate these Inertia pages into your Laravel application
+- Wire up controllers to return Inertia responses with props
+- Replace sample data with real data from Eloquent models
+- Implement loading states, error handling, and form validation
+- Use Inertia's client-side routing for seamless navigation
+
+The pages follow Inertia conventions — controllers return `Inertia::render()` with props, and pages receive data through props. How you architect Eloquent relationships, policies, and business logic is up to you.
 
 ---
 ```
@@ -693,6 +794,298 @@ See `product-plan/sections/[section-id]/tests.md` for UI behavior test specs cov
 - [ ] Uses Laravel validation and authorization where appropriate
 ```
 
+### Laravel Inertia 3: 01-shell.md
+
+For Laravel Inertia 3 exports, replace the shell section with:
+
+```markdown
+# Milestone 1: Shell
+
+> **Provide alongside:** `product-overview.md`
+> **Prerequisites:** None
+
+[Include the Laravel Inertia preamble]
+
+## Goal
+
+Set up the design tokens, Inertia layout, and application shell — the persistent chrome that wraps all sections.
+
+## What to Implement
+
+### 1. Design Tokens
+
+[If design tokens exist:]
+Configure your styling system with these tokens:
+
+- See `product-plan/design-system/tokens.css` for CSS custom properties
+- See `product-plan/design-system/tailwind-colors.md` for Tailwind configuration
+- See `product-plan/design-system/fonts.md` for Google Fonts setup
+
+[If not:]
+Define your own design tokens based on your brand guidelines.
+
+### 2. Inertia Layout
+
+[If shell exists:]
+
+Create the Inertia layout component that wraps all pages:
+
+**Layout Component:**
+Copy from `product-plan/shell/layouts/` to `resources/js/Layouts/`:
+- `AppLayout.[vue|tsx|svelte]` — Main layout with navigation and user menu
+
+**Controller (if needed):**
+Copy from `product-plan/shell/controllers/` to `app/Http/Controllers/`:
+- `AppShellController.php` — Controller for shell-related logic (if any)
+
+**Wire Up Navigation:**
+
+Connect navigation to your routes using Inertia links:
+
+[List nav items from shell spec with example route names]
+
+Example for [Vue/React/Svelte]:
+```[vue|tsx|svelte]
+// In AppLayout.[vue|tsx|svelte]
+const navItems = [
+  { label: 'Dashboard', route: 'dashboard' },
+  { label: 'Projects', route: 'projects.index' },
+  // ...
+]
+
+// Vue: <Link :href="route(item.route)">{{ item.label }}</Link>
+// React: <Link href={route(item.route)}>{item.label}</Link>
+// Svelte: <Link href={route(item.route)}>{item.label}</Link>
+```
+
+**User Menu:**
+
+The user menu expects:
+- Authenticated user's name (from `auth.user` prop)
+- Avatar URL (optional, from user model)
+- Logout action (POST to logout route)
+
+[If shell doesn't exist:]
+
+Design and implement your own Inertia layout with:
+- Navigation using Inertia `<Link>` components
+- User menu with authentication integration
+- Responsive layout using Tailwind CSS
+- Shared layout structure for all pages
+
+## Files to Reference
+
+- `product-plan/design-system/` — Design tokens
+- `product-plan/shell/README.md` — Shell design intent
+- `product-plan/shell/layouts/` — Inertia layout components
+- `product-plan/shell/screenshot.png` — Shell visual reference
+
+## Done When
+
+- [ ] Design tokens are configured
+- [ ] Inertia layout renders correctly
+- [ ] Navigation links use Inertia `<Link>` components
+- [ ] User menu shows authenticated user info
+- [ ] Logout functionality works (POST request)
+- [ ] Responsive on mobile
+- [ ] Shared layout applied to all pages
+```
+
+### Laravel Inertia 3: [NN]-[section-id].md
+
+For Laravel Inertia 3 exports, replace the section instructions with:
+
+```markdown
+# Milestone [N]: [Section Title]
+
+> **Provide alongside:** `product-overview.md`
+> **Prerequisites:** Milestone 1 (Shell) complete, plus any prior section milestones
+
+[Include the Laravel Inertia preamble]
+
+## Goal
+
+Implement the [Section Title] feature — [brief description from roadmap].
+
+## Overview
+
+[One paragraph describing what this section enables users to do. Focus on the user's perspective and the value they get from this feature. Extract from spec.md overview.]
+
+**Key Functionality:**
+- [Bullet point 1 — e.g., "View a list of all projects with status indicators"]
+- [Bullet point 2 — e.g., "Create new projects with name, description, and due date"]
+- [Bullet point 3 — e.g., "Edit existing project details inline"]
+- [Bullet point 4 — e.g., "Delete projects with confirmation"]
+- [Bullet point 5 — e.g., "Filter projects by status or search by name"]
+
+[List 3-6 key capabilities that the UI components support]
+
+## Components Provided
+
+Copy the section Inertia components to your Laravel project:
+
+**Controller:**
+Copy from `product-plan/sections/[section-id]/controllers/` to `app/Http/Controllers/[SectionId]/`:
+- `[Section]Controller.php` — Main controller with CRUD methods
+
+**Page Components:**
+Copy from `product-plan/sections/[section-id]/pages/` to `resources/js/Pages/[SectionId]/`:
+- `[Section]Index.[vue|tsx|svelte]` — List/index page
+- `[Section]Show.[vue|tsx|svelte]` — Detail view page (if applicable)
+- `[Section]Create.[vue|tsx|svelte]` — Create form page (if applicable)
+- `[Section]Edit.[vue|tsx|svelte]` — Edit form page (if applicable)
+
+**Reusable Components:**
+Copy from `product-plan/sections/[section-id]/components/` to `resources/js/Components/[SectionId]/`:
+- `[Component].[vue|tsx|svelte]` — Reusable UI components
+
+## Props Reference
+
+The Inertia pages receive these props (see `types.ts` for full definitions):
+
+**Page props:**
+
+[Key props from types.ts — show the main interfaces briefly]
+
+**Controller methods:**
+
+| Method | Route | Description |
+|--------|-------|-------------|
+| `index()` | GET /[section] | Display list of [entities] |
+| `show($id)` | GET /[section]/{id} | Display single [entity] |
+| `create()` | GET /[section]/create | Show create form |
+| `store()` | POST /[section] | Save new [entity] |
+| `edit($id)` | GET /[section]/{id}/edit | Show edit form |
+| `update($id)` | PUT /[section]/{id} | Update [entity] |
+| `destroy($id)` | DELETE /[section]/{id} | Delete [entity] |
+
+[Adjust based on actual controller]
+
+## Expected User Flows
+
+When fully implemented, users should be able to complete these flows:
+
+### Flow 1: [Primary Flow Name — e.g., "Create a New Project"]
+
+1. User clicks "New Project" button (navigates to create page)
+2. User fills in project name and description
+3. User clicks "Create" to save (POST request)
+4. **Outcome:** New project appears in the list, success message shown
+
+### Flow 2: [Secondary Flow Name — e.g., "Edit an Existing Project"]
+
+1. User clicks on a project row (navigates to show page)
+2. User clicks "Edit" button (navigates to edit page)
+3. User modifies the project details and clicks "Save" (PUT request)
+4. **Outcome:** Project updates in place, success message shown
+
+### Flow 3: [Additional Flow — e.g., "Delete a Project"]
+
+1. User clicks delete icon on a project
+2. User confirms deletion in modal/dialog
+3. **Outcome:** Project removed from list, empty state shown if last item
+
+[Include 2-4 flows covering the main user journeys in this section. Reference the specific UI elements and button labels from the components.]
+
+## Empty States
+
+The components include empty state designs. Make sure to handle:
+
+- **No data yet:** Show the empty state UI when the primary list/collection is empty
+- **No related records:** Handle cases where associated records don't exist (e.g., a project with no tasks)
+- **First-time experience:** Guide users to create their first item with clear CTAs
+
+## Form Handling
+
+Use Inertia's form helpers for validation and submission:
+
+**Vue:**
+```vue
+<script setup>
+import { useForm } from '@inertiajs/vue3'
+
+const form = useForm({
+  name: '',
+  description: '',
+  // ...
+})
+
+const submit = () => {
+  form.post(route('projects.store'), {
+    onSuccess: () => form.reset(),
+  })
+}
+</script>
+```
+
+**React:**
+```tsx
+import { useForm } from '@inertiajs/react'
+
+export default function Create() {
+  const { data, setData, post, processing, errors } = useForm({
+    name: '',
+    description: '',
+    // ...
+  })
+
+  const submit = (e) => {
+    e.preventDefault()
+    post(route('projects.store'))
+  }
+}
+```
+
+**Svelte:**
+```svelte
+<script>
+import { useForm } from '@inertiajs/svelte'
+
+const form = useForm({
+  name: '',
+  description: '',
+  // ...
+})
+
+const submit = () => {
+  form.post(route('projects.store'), {
+    onSuccess: () => form.reset(),
+  })
+}
+</script>
+```
+
+## Testing
+
+See `product-plan/sections/[section-id]/tests.md` for UI behavior test specs covering:
+- User flow success and failure paths
+- Empty state rendering
+- Component interactions and edge cases
+
+## Files to Reference
+
+- `product-plan/sections/[section-id]/README.md` — Feature overview and design intent
+- `product-plan/sections/[section-id]/tests.md` — UI behavior test specs
+- `product-plan/sections/[section-id]/controllers/` — Laravel controllers
+- `product-plan/sections/[section-id]/pages/` — Inertia page components
+- `product-plan/sections/[section-id]/components/` — Reusable components
+- `product-plan/sections/[section-id]/types.ts` — TypeScript interfaces
+- `product-plan/sections/[section-id]/sample-data.json` — Test data
+- `product-plan/sections/[section-id]/screenshot.png` — Visual reference
+
+## Done When
+
+- [ ] Controller methods return Inertia responses with correct props
+- [ ] Pages render with real data from Eloquent
+- [ ] Empty states display properly when no records exist
+- [ ] Forms have proper validation and error handling
+- [ ] User can complete all expected flows end-to-end
+- [ ] Matches the visual design (see screenshot)
+- [ ] Responsive on mobile
+- [ ] Uses Laravel validation and authorization where appropriate
+- [ ] Inertia progress indicators for loading states
+```
+
 ## Step 6: Generate one-shot-instructions.md
 
 Create `product-plan/instructions/one-shot-instructions.md` by combining all milestone content into a single document. Include the preamble at the very top:
@@ -1038,6 +1431,411 @@ class [Entity] extends Model
 
 Copy `product/sections/[section-id]/data.json` to `product-plan/sections/[section-id]/sample-data.json` (same as React)
 
+### For Laravel Inertia 3 Exports
+
+For Laravel Inertia 3 exports, you need to **transform** the React screen designs into Inertia pages and components. This involves generating controllers, page components, and reusable UI components.
+
+**Transform Process:**
+
+For each React component in `src/sections/[section-id]/components/`, generate:
+
+1. **Laravel Controller** → `product-plan/sections/[section-id]/controllers/[Section]Controller.php`
+2. **Inertia Page Component** → `product-plan/sections/[section-id]/pages/[Section]Index.[vue|tsx|svelte]`
+3. **TypeScript Types** → `product-plan/sections/[section-id]/types.ts`
+
+**Controller Generation:**
+
+For each section, create a RESTful controller:
+
+```php
+<?php
+
+namespace App\Http\Controllers\[SectionId];
+
+use App\Http\Controllers\Controller;
+use App\Models\[Entity];
+use Inertia\Inertia;
+use Inertia\Response;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+
+class [Section]Controller extends Controller
+{
+    /**
+     * Display a listing of [entities].
+     */
+    public function index(Request $request): Response
+    {
+        $[entities] = [Entity]::query()
+            ->when($request->search, fn($q, $search) => $q->where('name', 'like', "%{$search}%"))
+            ->when($request->status, fn($q, $status) => $q->where('status', $status))
+            ->latest()
+            ->paginate(15)
+            ->withQueryString();
+
+        return Inertia::render('[SectionId]/Index', [
+            '[entities]' => $[entities],
+            'filters' => [
+                'search' => $request->search,
+                'status' => $request->status,
+            ],
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new [entity].
+     */
+    public function create(): Response
+    {
+        return Inertia::render('[SectionId]/Create');
+    }
+
+    /**
+     * Store a newly created [entity].
+     */
+    public function store(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'status' => 'required|in:draft,active,archived',
+            // ... add more validation rules
+        ]);
+
+        [Entity]::create($validated);
+
+        return redirect()->route('[section].index')
+            ->with('flash.success', '[Entity] created successfully.');
+    }
+
+    /**
+     * Display the specified [entity].
+     */
+    public function show([Entity] $[entity]): Response
+    {
+        return Inertia::render('[SectionId]/Show', [
+            '[entity]' => $[entity]->load(['relations']),
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified [entity].
+     */
+    public function edit([Entity] $[entity]): Response
+    {
+        return Inertia::render('[SectionId]/Edit', [
+            '[entity]' => $[entity],
+        ]);
+    }
+
+    /**
+     * Update the specified [entity].
+     */
+    public function update(Request $request, [Entity] $[entity]): RedirectResponse
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'status' => 'required|in:draft,active,archived',
+            // ... add more validation rules
+        ]);
+
+        $[entity]->update($validated);
+
+        return redirect()->route('[section].index')
+            ->with('flash.success', '[Entity] updated successfully.');
+    }
+
+    /**
+     * Remove the specified [entity].
+     */
+    public function destroy([Entity] $[entity]): RedirectResponse
+    {
+        $this->authorize('delete', $[entity]);
+        $[entity]->delete();
+
+        return redirect()->route('[section].index')
+            ->with('flash.success', '[Entity] deleted successfully.');
+    }
+}
+```
+
+**Inertia Page Component Generation (Vue 3 Example):**
+
+Transform the React JSX into Vue 3 with Composition API:
+
+```vue
+<script setup>
+import { ref, computed } from 'vue'
+import { router, useForm, usePage } from '@inertiajs/vue3'
+import AppLayout from '@/Layouts/AppLayout.vue'
+import Pagination from '@/Components/Pagination.vue'
+
+// Props from controller
+const props = defineProps({
+  [entities]: {
+    type: Object, // Paginated collection
+    required: true,
+  },
+  filters: {
+    type: Object,
+    default: () => ({ search: '', status: '' }),
+  },
+})
+
+// Page props (for flash messages, auth, etc.)
+const page = usePage()
+const flashSuccess = computed(() => page.props.flash?.success)
+
+// Local state
+const search = ref(props.filters.search)
+const statusFilter = ref(props.filters.status)
+
+// Computed filtered [entities]
+const filtered[Entities] = computed(() => props.[entities].data)
+
+// Actions
+const view[Entity] = ([entity]) => {
+  router.get(route('[section].show', [entity].id))
+}
+
+const edit[Entity] = ([entity]) => {
+  router.get(route('[section].edit', [entity].id))
+}
+
+const delete[Entity] = ([entity]) => {
+  if (confirm('Are you sure you want to delete this [entity]?')) {
+    router.delete(route('[section].destroy', [entity].id))
+  }
+}
+
+const create[Entity] = () => {
+  router.get(route('[section].create'))
+}
+
+// Search and filter
+const applyFilters = () => {
+  router.get(route('[section].index'), {
+    search: search.value,
+    status: statusFilter.value,
+  }, {
+    preserveState: true,
+  })
+}
+</script>
+
+<template>
+  <AppLayout>
+    <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center">
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">
+            [Section Title]
+          </h1>
+          <button
+            @click="create[Entity]"
+            class="px-4 py-2 bg-[primary]-600 hover:bg-[primary]-700 text-white rounded-lg"
+          >
+            Create New
+          </button>
+        </div>
+
+        <!-- Flash message -->
+        <div v-if="flashSuccess" class="mt-4 p-4 bg-green-100 text-green-800 rounded-lg">
+          {{ flashSuccess }}
+        </div>
+
+        <!-- Search and filters -->
+        <div class="mt-6 flex gap-4">
+          <input
+            v-model="search"
+            @change="applyFilters"
+            type="text"
+            placeholder="Search..."
+            class="flex-1 rounded-lg border-gray-300 dark:border-gray-700"
+          />
+          <select v-model="statusFilter" @change="applyFilters" class="rounded-lg border-gray-300">
+            <option value="">All Statuses</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
+        </div>
+
+        <!-- Main content -->
+        <div class="mt-8">
+          <template v-if="filtered[Entities].length === 0">
+            <!-- Empty state -->
+            <div class="text-center py-12">
+              <p class="text-gray-500 dark:text-gray-400">No [entities] yet</p>
+              <button @click="create[Entity]" class="mt-4 text-[primary]-600 hover:text-[primary]-700">
+                Create your first [entity]
+              </button>
+            </div>
+          </template>
+          <template v-else>
+            <!-- List/Grid of items -->
+            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <div
+                v-for="[entity] in filtered[Entities]"
+                :key="[entity].id"
+                class="bg-white dark:bg-gray-800 rounded-lg shadow p-4"
+              >
+                <h3 class="font-semibold text-gray-900 dark:text-white">
+                  {{ [entity].name }}
+                </h3>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  {{ [entity].description }}
+                </p>
+                <div class="mt-4 flex gap-2">
+                  <button @click="view[Entity]([entity])" class="text-[primary]-600 hover:text-[primary]-700 text-sm">
+                    View
+                  </button>
+                  <button @click="edit[Entity]([entity])" class="text-gray-600 hover:text-gray-700 text-sm">
+                    Edit
+                  </button>
+                  <button @click="delete[Entity]([entity])" class="text-red-600 hover:text-red-700 text-sm">
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pagination -->
+            <Pagination :paginator="props.[entities]" class="mt-8" />
+          </template>
+        </div>
+      </div>
+    </div>
+  </AppLayout>
+</template>
+```
+
+**React Example (for Inertia React):**
+
+```tsx
+import { router, useForm, usePage } from '@inertiajs/react'
+import AppLayout from '@/Layouts/AppLayout'
+import Pagination from '@/Components/Pagination'
+
+export default function Index({ [entities], filters }) {
+  const { flash } = usePage().props
+  const [search, setSearch] = useState(filters.search || '')
+  const [statusFilter, setStatusFilter] = useState(filters.status || '')
+
+  const applyFilters = () => {
+    router.get(route('[section].index'), { search, status: statusFilter }, {
+      preserveState: true,
+    })
+  }
+
+  return (
+    <AppLayout>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        {/* Similar structure as Vue but with JSX */}
+      </div>
+    </AppLayout>
+  )
+}
+```
+
+**Svelte Example (for Inertia Svelte):**
+
+```svelte
+<script>
+  import { page, navigate } from '@inertiajs/svelte'
+  import AppLayout from '@/Layouts/AppLayout.svelte'
+  import Pagination from '@/Components/Pagination.svelte'
+
+  export let [entities]
+  export let filters = { search: '', status: '' }
+
+  let search = filters.search
+  let statusFilter = filters.status
+
+  const applyFilters = () => {
+    navigate(route('[section].index'), {
+      method: 'get',
+      data: { search, status: statusFilter },
+      preserveState: true,
+    })
+  }
+
+  $: filtered[Entities] = [entities].data || []
+  $: flashSuccess = $page.props.flash?.success
+</script>
+
+<AppLayout>
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <!-- Similar structure as Vue but with Svelte syntax -->
+  </div>
+</AppLayout>
+```
+
+**TypeScript Types Generation:**
+
+Transform TypeScript interfaces for Inertia shared types:
+
+```typescript
+// types.ts
+
+// Shared types for Inertia
+export interface [Entity] {
+  id: number
+  name: string
+  description: string | null
+  status: 'draft' | 'active' | 'archived'
+  created_at: string
+  updated_at: string
+}
+
+// Paginated response
+export interface Paginated<T> {
+  data: T[]
+  current_page: number
+  last_page: number
+  per_page: number
+  total: number
+  links: {
+    url: string | null
+    label: string
+    active: boolean
+  }[]
+}
+
+// Page props
+export interface [Section]IndexProps {
+  [entities]: Paginated<[Entity]>
+  filters: {
+    search: string
+    status: string
+  }
+}
+
+// Shared Inertia types
+export interface User {
+  id: number
+  name: string
+  email: string
+  avatar_url?: string
+}
+
+export interface PageProps {
+  auth: {
+    user: User | null
+  }
+  flash: {
+    success?: string
+    error?: string
+  }
+  // ... other shared props
+}
+```
+
+**Sample Data:**
+
+Copy `product/sections/[section-id]/data.json` to `product-plan/sections/[section-id]/sample-data.json` (same as React)
+
 ## Step 8: Generate Section READMEs
 
 ### For React Exports
@@ -1145,6 +1943,91 @@ See `screenshot.png` for the target UI design.
 | `create()` | none | User clicks to create new |
 
 [Adjust based on actual component]
+```
+
+### For Laravel Inertia 3 Exports
+
+For each section, create `product-plan/sections/[section-id]/README.md`:
+
+```markdown
+# [Section Title]
+
+## Overview
+
+[From spec.md overview]
+
+## User Flows
+
+[From spec.md user flows]
+
+## Design Decisions
+
+[Notable design choices from the screen design]
+
+## Data Shapes
+
+**Entities:** [List entities from types.ts]
+
+**From global entities:** [Which entities from data shape are used, if applicable]
+
+## Visual Reference
+
+See `screenshot.png` for the target UI design.
+
+## Components Provided
+
+**Controller:**
+- `[Section]Controller.php` — RESTful controller with CRUD methods
+
+**Page Components ([Vue/React/Svelte]):**
+- `[Section]Index.[vue|tsx|svelte]` — List/index page
+- `[Section]Show.[vue|tsx|svelte]` — Detail view page
+- `[Section]Create.[vue|tsx|svelte]` — Create form page
+- `[Section]Edit.[vue|tsx|svelte]` — Edit form page
+
+**Reusable Components:**
+- `[Component].[vue|tsx|svelte]` — Reusable UI components
+
+## Props Reference
+
+**Page props:**
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `[entities]` | `Paginated<[Entity]>` | Paginated collection of [entities] |
+| `filters` | `Object` | Search and filter parameters |
+| `[entity]` | `[Entity]` | Single [entity] for show/edit pages |
+
+**Controller methods:**
+
+| Method | Route | Description |
+|--------|-------|-------------|
+| `index()` | GET /[section] | Display list with pagination |
+| `show($id)` | GET /[section]/{id} | Display single [entity] |
+| `create()` | GET /[section]/create | Show create form |
+| `store()` | POST /[section] | Save new [entity] |
+| `edit($id)` | GET /[section]/{id}/edit | Show edit form |
+| `update($id)` | PUT /[section]/{id} | Update [entity] |
+| `destroy($id)` | DELETE /[section]/{id} | Delete [entity] |
+
+[Adjust based on actual controller]
+
+## Inertia Integration
+
+**Form Handling:**
+- Use `useForm` composable/hook for form state
+- Validation errors returned automatically via Inertia
+- Flash messages available via `page.props.flash`
+
+**Navigation:**
+- Use `<Link>` component for client-side navigation
+- Use `router.visit()` or `navigate()` for programmatic navigation
+- Preserve state during filters/search
+
+**Loading States:**
+- Use Inertia progress indicators
+- Show loading spinners during form submissions
+- Handle pending states for async actions
 ```
 
 ## Step 9: Generate Section Test Instructions
@@ -1679,6 +2562,109 @@ Once I answer your questions, proceed with implementation. The implementation sh
 8. Tests (PHPUnit/Pest) based on the test specs
 ```
 
+**For Laravel Inertia 3:**
+```markdown
+# One-Shot Implementation Prompt (Laravel Inertia 3)
+
+I need you to implement a complete Laravel web application with Inertia v3 and [Vue 3/React/Svelte] based on detailed UI designs and product specifications I'm providing.
+
+## Instructions
+
+Please carefully read and analyze the following files:
+
+1. **@product-plan/product-overview.md** — Product summary with sections and entity overview
+2. **@product-plan/instructions/one-shot-instructions.md** — Complete implementation instructions for all milestones (Laravel Inertia version)
+
+After reading these, also review:
+- **@product-plan/design-system/** — Color and typography tokens
+- **@product-plan/data-shapes/** — TypeScript type definitions for frontend data
+- **@product-plan/shell/** — Inertia layout components
+- **@product-plan/sections/** — All section controllers, Inertia pages, components, types, sample data, and test specs
+
+## Before You Begin
+
+Review all the provided files, then ask me clarifying questions about:
+
+1. **My Laravel setup** — Laravel version (should be 13+), existing codebase, database choice (MySQL, PostgreSQL, SQLite)
+2. **Inertia configuration** — Any existing Inertia setup, frontend framework ([Vue/React/Svelte]), and bundler (Vite)
+3. **Authentication & users** — How users should sign up, log in (Breeze, Jetstream, Fortify, custom), and what permissions/authorization exist
+4. **Eloquent models** — Whether models already exist or need to be created, and any relationships to consider
+5. **Frontend preferences** — Component library preferences, form validation approach, and state management needs
+6. **Product requirements** — Anything in the specs or user flows that needs clarification
+
+Lastly, ask me if I have any additional notes for this implementation.
+
+Once I answer your questions, create a comprehensive implementation plan before coding. The plan should include:
+
+1. Migration files for database tables
+2. Eloquent model classes with relationships and factories
+3. Laravel controllers returning Inertia responses
+4. Inertia page components ([Vue/React/Svelte]) with proper props
+5. Reusable UI components
+6. Route definitions in web.php
+7. Authorization policies
+8. Form validation with Inertia error handling
+9. Flash message handling
+10. Testing setup (PHPUnit/Pest for backend, Vitest/Cypress for frontend)
+```
+
+# Section Implementation Prompt (Laravel Inertia 3)
+
+## Define Section Variables
+
+- **SECTION_NAME** = [Human-readable name, e.g., "Invoices" or "Project Dashboard"]
+- **SECTION_ID** = [Folder name in sections/, e.g., "invoices" or "project-dashboard"]
+- **NN** = [Milestone number, e.g., "02" or "03" — sections start at 02 since 01 is Shell]
+- **FRONTEND** = [vue|react|svelte] — The frontend framework being used
+
+---
+
+I need you to implement the **SECTION_NAME** section of my Laravel application using Inertia v3 with [Vue/React/Svelte].
+
+## Instructions
+
+Please carefully read and analyze the following files:
+
+1. **@product-plan/product-overview.md** — Product summary for overall context
+2. **@product-plan/instructions/incremental/NN-SECTION_ID.md** — Specific instructions for this section (Laravel Inertia version)
+
+Also review the section assets:
+- **@product-plan/sections/SECTION_ID/README.md** — Feature overview and design intent
+- **@product-plan/sections/SECTION_ID/tests.md** — UI behavior test specs
+- **@product-plan/sections/SECTION_ID/controllers/** — Laravel controllers
+- **@product-plan/sections/SECTION_ID/pages/** — Inertia page components ([vue|tsx|svelte])
+- **@product-plan/sections/SECTION_ID/components/** — Reusable UI components
+- **@product-plan/sections/SECTION_ID/types.ts** — TypeScript type definitions
+- **@product-plan/sections/SECTION_ID/sample-data.json** — Test data
+
+## Before You Begin
+
+Review all the provided files, then ask me clarifying questions about:
+
+1. **Integration** — How this section connects to existing features, routes, and Eloquent models
+2. **Eloquent models** — Whether the models already exist or need to be created with relationships
+3. **Authorization** — What policies or gates need to be in place for CRUD operations
+4. **Validation** — Any existing validation patterns or rules to follow
+5. **Frontend integration** — How to integrate with existing layout, navigation, and shared components
+6. **Product requirements** — Anything in the specs or user flows that needs clarification
+
+Lastly, ask me if I have any additional notes for this implementation.
+
+Once I answer your questions, proceed with implementation. The implementation should include:
+
+1. Migration for database tables (if not already created)
+2. Eloquent model with relationships and factory
+3. Controller methods returning Inertia responses with correct props
+4. Inertia page components with proper typing and props
+5. Reusable components for forms, lists, and UI elements
+6. Route definitions in web.php
+7. Authorization policies and gates
+8. Form validation with Inertia error handling
+9. Flash message display
+10. Loading states and progress indicators
+11. Tests (PHPUnit/Pest for backend, Vitest/Cypress for frontend)
+```
+
 ## Step 13: Generate README.md
 
 Create `product-plan/README.md`:
@@ -1871,6 +2857,151 @@ Each section includes:
 *Generated by Design OS*
 ```
 
+**For Laravel Inertia 3:**
+```markdown
+# [Product Name] — Laravel Inertia 3 Handoff
+
+This folder contains everything needed to implement [Product Name] as a Laravel application with Inertia v3 and [Vue 3/React/Svelte].
+
+## What's Included
+
+**Ready-to-Use Prompts:**
+- `prompts/one-shot-prompt.md` — Prompt for full Laravel + Inertia implementation
+- `prompts/section-prompt.md` — Prompt template for section-by-section implementation
+
+**Instructions:**
+- `product-overview.md` — Product summary (always provide with every implementation)
+- `instructions/one-shot-instructions.md` — All milestones combined for full implementation
+- `instructions/incremental/` — Milestone-by-milestone instructions (shell, then sections)
+
+**Design Assets:**
+- `design-system/` — Colors, fonts, design tokens
+- `data-shapes/` — TypeScript type definitions for frontend data
+- `shell/` — Inertia layout components
+- `sections/` — All section controllers, Inertia pages, components, types, sample data, and test specs
+
+## Prerequisites
+
+- Laravel 13+
+- PHP 8.2+
+- Inertia v3
+- Frontend: Vue 3 + Vite, OR React 18+ + Vite, OR Svelte 4+ + Vite
+- Tailwind CSS v4
+- MySQL, PostgreSQL, or SQLite
+
+## How to Use This
+
+### Option A: Incremental (Recommended)
+
+Build your Laravel application milestone by milestone:
+
+1. Copy the `product-plan/` folder to your Laravel project root
+2. Start with Shell (`instructions/incremental/01-shell.md`) — includes design tokens and Inertia layout
+3. For each section:
+   - Open `prompts/section-prompt.md`
+   - Fill in the section variables (SECTION_NAME, SECTION_ID, NN, FRONTEND)
+   - Copy/paste into your coding agent
+   - Answer questions about Eloquent models, routes, and authorization
+   - Implement and test
+4. Run migrations after each milestone: `php artisan migrate`
+5. Review and test after each milestone
+
+### Option B: One-Shot
+
+Build the entire Laravel application in one session:
+
+1. Copy the `product-plan/` folder to your Laravel project root
+2. Open `prompts/one-shot-prompt.md` (Laravel Inertia version)
+3. Add any additional notes about your setup
+4. Copy/paste the prompt into your coding agent
+5. Answer the agent's clarifying questions about:
+   - Laravel version and existing setup
+   - Frontend framework choice (Vue/React/Svelte)
+   - Database choice and existing migrations
+   - Authentication (Breeze, Jetstream, Fortify, or custom)
+   - Authorization patterns
+6. Let the agent plan and implement everything
+7. Run migrations: `php artisan migrate`
+8. Install frontend dependencies: `npm install`
+9. Build assets: `npm run build` or `npm run dev`
+10. Test the full application
+
+## Testing
+
+Each section includes a `tests.md` file with UI behavior test specs. For best results:
+
+**Backend (Pest/PHPUnit):**
+1. Read `sections/[section-id]/tests.md` before implementing
+2. Write tests for controller methods and Eloquent models
+3. Test authorization and validation
+4. Run tests: `php artisan test` or `./vendor/bin/pest`
+
+**Frontend (Vitest/Cypress):**
+1. Write component tests for Inertia pages
+2. Test user flows with Cypress or Playwright
+3. Test form validation and error handling
+4. Run tests: `npm run test`
+
+Example backend test (Pest):
+```php
+it('can display [entities] list', function () {
+    $[entities] = [Entity]::factory()->count(5)->create();
+
+    $response = $this->get(route('[section].index'));
+
+    $response->assertOk();
+    $response->assertInertia(fn ($page) => $page
+        ->component('[SectionId]/Index')
+        ->has('[entities].data', 5)
+    );
+});
+
+it('can create a new [entity]', function () {
+    $data = [Entity]::factory()->make()->toArray();
+
+    $response = $this->post(route('[section].store'), $data);
+
+    $response->assertRedirect(route('[section].index'));
+    $this->assertDatabaseHas('[entities]', ['name' => $data['name']]);
+});
+```
+
+## Inertia Component Structure
+
+Each section includes:
+
+**Controllers** (`app/Http/Controllers/[SectionId]/`):
+- RESTful controller with CRUD methods
+- Returns `Inertia::render()` with props
+- Handles validation and authorization
+
+**Page Components** (`resources/js/Pages/[SectionId]/`):
+- Full-page components ([Vue/React/Svelte])
+- Receive data through props
+- Use Inertia `<Link>` for navigation
+- Use `useForm` for form handling
+
+**Reusable Components** (`resources/js/Components/[SectionId]/`):
+- Modular UI components
+- Forms, lists, cards, modals
+- Shared across pages
+
+## Tips
+
+- **Use the pre-written prompts** — They prompt for important clarifying questions about your Laravel and frontend setup.
+- **Add your own notes** — Customize prompts with project-specific context.
+- **Run migrations** — Always run `php artisan migrate` after new migrations are created.
+- **Build assets** — Run `npm run build` or `npm run dev` after adding new components.
+- **Check authorization** — Ensure policies are registered and working.
+- **Test thoroughly** — Use the test specs for both backend and frontend tests.
+- **Inertia is flexible** — Controllers return props, pages receive them. How you architect Eloquent relationships and business logic is up to you.
+- **TypeScript is shared** — Use the provided types.ts for consistent typing across frontend.
+
+---
+
+*Generated by Design OS*
+```
+
 ## Step 14: Copy Screenshots
 
 Copy any `.png` files from:
@@ -1968,6 +3099,48 @@ Restart your dev server and visit the Export page to download `product-plan.zip`
 
 The Livewire components follow Laravel conventions — they have public properties for data and methods for actions. How you architect Eloquent relationships, business logic, and authorization is up to you."
 
+**For Laravel Inertia 3:**
+"I've created the complete Laravel Inertia 3 export package at `product-plan/` and `product-plan.zip`.
+
+**What's Included:**
+
+**Ready-to-Use Prompts:**
+- `prompts/one-shot-prompt.md` — Prompt for full Laravel + Inertia implementation
+- `prompts/section-prompt.md` — Prompt template for section-by-section
+
+**Instructions:**
+- `product-overview.md` — Product summary (always provide with instructions)
+- `instructions/one-shot-instructions.md` — All milestones combined (Laravel Inertia version)
+- `instructions/incremental/` — [N] milestone instructions (shell, then sections)
+
+**Design Assets:**
+- `design-system/` — Colors, fonts, tokens
+- `data-shapes/` — TypeScript data contracts and type reference
+- `shell/` — Inertia layout components
+- `sections/` — [N] section packages with controllers, Inertia pages, components, and test specs
+
+**Download:**
+
+Restart your dev server and visit the Export page to download `product-plan.zip`.
+
+**How to Use:**
+
+1. Copy `product-plan/` to your Laravel 13+ project root
+2. Open `prompts/one-shot-prompt.md` or `prompts/section-prompt.md`
+3. Add any additional notes about your setup, then copy/paste into your coding agent
+4. Answer the agent's clarifying questions about:
+   - Laravel version and existing setup
+   - Frontend framework (Vue/React/Svelte)
+   - Database and migrations
+   - Authentication (Breeze, Jetstream, Fortify, or custom)
+   - Authorization policies
+5. Let the agent implement based on the instructions
+6. Run migrations: `php artisan migrate`
+7. Install dependencies: `npm install`
+8. Build assets: `npm run build` or `npm run dev`
+
+The Inertia pages follow Laravel conventions — controllers return `Inertia::render()` with props, and pages receive data through props. How you architect Eloquent relationships, business logic, and authorization is up to you."
+
 ## Important Notes
 
 **For React:**
@@ -1989,3 +3162,16 @@ The Livewire components follow Laravel conventions — they have public properti
 - Livewire components are portable — they work with any Laravel 13+ setup
 - Remember to run migrations after each milestone: `php artisan migrate`
 - Register any new policies in `AuthServiceProvider`
+
+**For Laravel Inertia 3:**
+- Transform React components to Inertia pages and Laravel controllers
+- Include `product-overview.md` context with every implementation session
+- Use the pre-written prompts — they prompt for important Laravel and frontend questions
+- Screenshots provide visual reference for fidelity checking
+- Sample data files are for testing before real Eloquent models are wired up
+- The export is self-contained — no dependencies on Design OS
+- Inertia pages are portable — they work with any Laravel 13+ + Inertia v3 setup
+- Remember to run migrations after each milestone: `php artisan migrate`
+- Build assets after adding components: `npm run build` or `npm run dev`
+- Register any new policies in `AuthServiceProvider`
+- Use TypeScript types from `types.ts` for consistent frontend typing

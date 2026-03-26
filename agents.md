@@ -51,9 +51,21 @@ Design the persistent navigation and layout that wraps all sections.
 - `/design-screen` — Create screen designs
 - `/screenshot-design` — Capture screenshots
 
-### 5. Export (`/export-product`)
-Generate the complete export package with all components, types, and handoff documentation.
+### 5. Export (`/export-product` or `/generate-product-*`)
+
+**Option A: Interactive Export** (`/export-product`)
+Generate the complete export package with framework selection dialog.
 **Output:** `product-plan/`
+
+**Option B: Direct Generate Commands** — Skip the framework selection and generate directly:
+
+- `/generate-product-react` — Generate React export package
+- `/generate-product-livewire` — Generate Laravel Livewire v4 export package
+- `/generate-product-inertia-vue` — Generate Laravel Inertia 3 + Vue 3 export package
+- `/generate-product-inertia-react` — Generate Laravel Inertia 3 + React export package
+- `/generate-product-inertia-svelte` — Generate Laravel Inertia 3 + Svelte export package
+
+All generate commands produce `product-plan/` with framework-specific components, instructions, and prompts.
 
 ---
 
