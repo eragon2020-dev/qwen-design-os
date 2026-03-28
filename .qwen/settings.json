@@ -10,7 +10,13 @@
       "Bash(rm *)",
       "Bash(npx *)",
       "WebSearch",
-      "WebFetch(claude.com)"
+      "WebFetch(claude.com)",
+      "Bash(do *)",
+      "Bash(done)",
+      "Bash(npm install)",
+      "Bash(grep *)",
+      "Bash(node *)",
+      "Bash(npm *)"
     ]
   },
   "$version": 3
