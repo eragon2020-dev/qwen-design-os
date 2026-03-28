@@ -1,0 +1,20 @@
+import data from '@/../product/sections/payment-enrollment/data.json'
+import { UploadPayment } from './components/UploadPayment'
+
+export default function UploadPaymentPreview() {
+  return (
+    <UploadPayment
+      paymentSlips={data.paymentSlips}
+      enrollmentStatuses={data.enrollmentStatuses}
+      availableCourses={data.availableCourses}
+      adminStats={data.adminStats}
+      onUploadPayment={(paymentData) => console.log('Upload payment:', paymentData)}
+      onApprovePayment={(slipId) => console.log('Approve payment:', slipId)}
+      onRejectPayment={(slipId, reason) => console.log('Reject payment:', slipId, reason)}
+      onViewSlip={(slipUrl) => console.log('View slip:', slipUrl)}
+      onEnroll={(courseId) => console.log('Enroll:', courseId)}
+      onDownloadCertificate={(enrollmentId) => console.log('Download certificate:', enrollmentId)}
+      onResubmitPayment={(slipId) => console.log('Resubmit payment:', slipId)}
+    />
+  )
+}

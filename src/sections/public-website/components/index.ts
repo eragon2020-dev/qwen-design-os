@@ -1,0 +1,5 @@
+export { Homepage } from './Homepage'
+export { CourseCatalog } from './CourseCatalog'
+export { CourseDetail } from './CourseDetail'
+export { LecturerProfile } from './LecturerProfile'
+export { ContactPage } from './ContactPage'

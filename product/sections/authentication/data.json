@@ -1,0 +1,107 @@
+{
+  "_meta": {
+    "models": {
+      "user": "A registered user account with authentication credentials and profile information.",
+      "otpRequest": "A temporary OTP verification request sent to a user's mobile or email during sign-up or password reset."
+    },
+    "relationships": [
+      "A user can have multiple OTP requests associated with their mobile number or email"
+    ]
+  },
+  "users": [
+    {
+      "id": "usr_001",
+      "name": "Alex Morgan",
+      "email": "alex.morgan@example.com",
+      "mobile": "+1234567890",
+      "role": "student",
+      "createdAt": "2025-01-15T10:30:00Z"
+    },
+    {
+      "id": "usr_002",
+      "name": "Dr. Sarah Chen",
+      "email": "sarah.chen@example.com",
+      "mobile": "+1234567891",
+      "role": "lecturer",
+      "createdAt": "2025-01-10T08:15:00Z"
+    },
+    {
+      "id": "usr_003",
+      "name": "James Wilson",
+      "email": "james.wilson@example.com",
+      "mobile": "+1234567892",
+      "role": "student",
+      "createdAt": "2025-02-01T14:20:00Z"
+    },
+    {
+      "id": "usr_004",
+      "name": "Prof. Michael Brown",
+      "email": "michael.brown@example.com",
+      "mobile": "+1234567893",
+      "role": "lecturer",
+      "createdAt": "2025-01-20T09:45:00Z"
+    },
+    {
+      "id": "usr_005",
+      "name": "Emily Rodriguez",
+      "email": "emily.rodriguez@example.com",
+      "mobile": "+1234567894",
+      "role": "student",
+      "createdAt": "2025-02-10T16:00:00Z"
+    },
+    {
+      "id": "usr_006",
+      "name": "David Kim",
+      "email": "david.kim@example.com",
+      "mobile": "+1234567895",
+      "role": "student",
+      "createdAt": "2025-02-15T11:30:00Z"
+    },
+    {
+      "id": "usr_007",
+      "name": "Dr. Lisa Thompson",
+      "email": "lisa.thompson@example.com",
+      "mobile": "+1234567896",
+      "role": "lecturer",
+      "createdAt": "2025-01-25T13:00:00Z"
+    }
+  ],
+  "otpRequests": [
+    {
+      "id": "otp_001",
+      "mobile": "+1234567890",
+      "email": null,
+      "purpose": "signup",
+      "code": "123456",
+      "expiresAt": "2025-03-28T10:45:00Z",
+      "verified": false
+    },
+    {
+      "id": "otp_002",
+      "mobile": "+1234567897",
+      "email": null,
+      "purpose": "signup",
+      "code": "654321",
+      "expiresAt": "2025-03-28T11:00:00Z",
+      "verified": false
+    },
+    {
+      "id": "otp_003",
+      "mobile": null,
+      "email": "alex.morgan@example.com",
+      "purpose": "passwordReset",
+      "code": "789012",
+      "expiresAt": "2025-03-28T10:50:00Z",
+      "verified": false
+    },
+    {
+      "id": "otp_004",
+      "mobile": "+1234567891",
+      "email": null,
+      "purpose": "passwordReset",
+      "code": "345678",
+      "expiresAt": "2025-03-28T11:15:00Z",
+      "verified": false
+    }
+  ]
+}

@@ -1,0 +1,392 @@
+{
+  "_meta": {
+    "models": {
+      "course": "A course available on Study Line, containing details like title, description, thumbnail, and enrollment information.",
+      "lecturer": "A course instructor who teaches on the platform, with profile information and associated courses.",
+      "testimonial": "A student review or testimonial about a course or their experience on Study Line.",
+      "category": "A subject category or topic area that courses can be organized under."
+    },
+    "relationships": [
+      "A lecturer teaches many courses",
+      "A course belongs to one lecturer",
+      "A course can have many testimonials",
+      "A course belongs to one category"
+    ]
+  },
+  "categories": [
+    {
+      "id": "cat_001",
+      "name": "Web Development",
+      "slug": "web-development",
+      "courseCount": 12
+    },
+    {
+      "id": "cat_002",
+      "name": "Data Science",
+      "slug": "data-science",
+      "courseCount": 8
+    },
+    {
+      "id": "cat_003",
+      "name": "Mobile Development",
+      "slug": "mobile-development",
+      "courseCount": 6
+    },
+    {
+      "id": "cat_004",
+      "name": "Design",
+      "slug": "design",
+      "courseCount": 5
+    },
+    {
+      "id": "cat_005",
+      "name": "Business",
+      "slug": "business",
+      "courseCount": 7
+    }
+  ],
+  "courses": [
+    {
+      "id": "crs_001",
+      "title": "Complete React Developer Bootcamp",
+      "slug": "complete-react-developer-bootcamp",
+      "description": "Master React.js from basics to advanced concepts. Build real-world projects including e-commerce apps, dashboards, and social media clones. Learn hooks, context, Redux, and modern best practices.",
+      "shortDescription": "Master React.js and build real-world applications",
+      "thumbnailUrl": "/images/courses/react-bootcamp.jpg",
+      "price": 89.99,
+      "currency": "USD",
+      "duration": "42 hours",
+      "level": "All Levels",
+      "enrollmentCount": 1247,
+      "rating": 4.8,
+      "reviewCount": 342,
+      "lecturerId": "lec_001",
+      "categoryId": "cat_001",
+      "isFeatured": true,
+      "syllabus": [
+        { "title": "Introduction to React", "lessonCount": 8 },
+        { "title": "React Hooks Deep Dive", "lessonCount": 12 },
+        { "title": "State Management with Redux", "lessonCount": 10 },
+        { "title": "Building Real Projects", "lessonCount": 15 }
+      ]
+    },
+    {
+      "id": "crs_002",
+      "title": "Python for Data Science and Machine Learning",
+      "slug": "python-data-science-machine-learning",
+      "description": "Learn Python programming, data analysis, visualization, and machine learning algorithms. Work with pandas, NumPy, matplotlib, and scikit-learn to solve real data problems.",
+      "shortDescription": "Learn Python, data analysis, and ML fundamentals",
+      "thumbnailUrl": "/images/courses/python-data-science.jpg",
+      "price": 94.99,
+      "currency": "USD",
+      "duration": "56 hours",
+      "level": "Intermediate",
+      "enrollmentCount": 2103,
+      "rating": 4.9,
+      "reviewCount": 567,
+      "lecturerId": "lec_002",
+      "categoryId": "cat_002",
+      "isFeatured": true,
+      "syllabus": [
+        { "title": "Python Fundamentals", "lessonCount": 10 },
+        { "title": "Data Analysis with pandas", "lessonCount": 14 },
+        { "title": "Visualization with matplotlib", "lessonCount": 8 },
+        { "title": "Machine Learning Basics", "lessonCount": 16 }
+      ]
+    },
+    {
+      "id": "crs_003",
+      "title": "iOS App Development with Swift",
+      "slug": "ios-app-development-swift",
+      "description": "Build beautiful iOS applications using Swift and SwiftUI. From basic UI components to Core Data and networking, learn everything needed to publish apps on the App Store.",
+      "shortDescription": "Build iOS apps with Swift and SwiftUI",
+      "thumbnailUrl": "/images/courses/ios-swift.jpg",
+      "price": 79.99,
+      "currency": "USD",
+      "duration": "38 hours",
+      "level": "Beginner",
+      "enrollmentCount": 892,
+      "rating": 4.7,
+      "reviewCount": 234,
+      "lecturerId": "lec_003",
+      "categoryId": "cat_003",
+      "isFeatured": false,
+      "syllabus": [
+        { "title": "Swift Basics", "lessonCount": 12 },
+        { "title": "SwiftUI Fundamentals", "lessonCount": 10 },
+        { "title": "Data Persistence", "lessonCount": 8 },
+        { "title": "App Store Publishing", "lessonCount": 6 }
+      ]
+    },
+    {
+      "id": "crs_004",
+      "title": "UI/UX Design Masterclass",
+      "slug": "ui-ux-design-masterclass",
+      "description": "Learn user interface and user experience design principles. Master Figma, create wireframes, prototypes, and design systems. Build a portfolio of stunning designs.",
+      "shortDescription": "Master UI/UX design with Figma and design principles",
+      "thumbnailUrl": "/images/courses/ui-ux-design.jpg",
+      "price": 69.99,
+      "currency": "USD",
+      "duration": "32 hours",
+      "level": "All Levels",
+      "enrollmentCount": 1567,
+      "rating": 4.8,
+      "reviewCount": 421,
+      "lecturerId": "lec_004",
+      "categoryId": "cat_004",
+      "isFeatured": true,
+      "syllabus": [
+        { "title": "Design Fundamentals", "lessonCount": 8 },
+        { "title": "Figma Mastery", "lessonCount": 12 },
+        { "title": "Prototyping", "lessonCount": 8 },
+        { "title": "Design Systems", "lessonCount": 6 }
+      ]
+    },
+    {
+      "id": "crs_005",
+      "title": "Digital Marketing Strategy",
+      "slug": "digital-marketing-strategy",
+      "description": "Master digital marketing channels including SEO, social media, email marketing, and paid advertising. Learn to create campaigns that drive results.",
+      "shortDescription": "Master SEO, social media, and paid advertising",
+      "thumbnailUrl": "/images/courses/digital-marketing.jpg",
+      "price": 59.99,
+      "currency": "USD",
+      "duration": "28 hours",
+      "level": "Beginner",
+      "enrollmentCount": 743,
+      "rating": 4.6,
+      "reviewCount": 189,
+      "lecturerId": "lec_005",
+      "categoryId": "cat_005",
+      "isFeatured": false,
+      "syllabus": [
+        { "title": "Marketing Fundamentals", "lessonCount": 6 },
+        { "title": "SEO Mastery", "lessonCount": 8 },
+        { "title": "Social Media Marketing", "lessonCount": 8 },
+        { "title": "Paid Advertising", "lessonCount": 6 }
+      ]
+    },
+    {
+      "id": "crs_006",
+      "title": "Full-Stack Node.js Development",
+      "slug": "fullstack-nodejs-development",
+      "description": "Build complete web applications with Node.js, Express, MongoDB, and React. Learn REST APIs, authentication, deployment, and production best practices.",
+      "shortDescription": "Build full-stack apps with Node.js and MongoDB",
+      "thumbnailUrl": "/images/courses/nodejs-fullstack.jpg",
+      "price": 84.99,
+      "currency": "USD",
+      "duration": "48 hours",
+      "level": "Intermediate",
+      "enrollmentCount": 1089,
+      "rating": 4.7,
+      "reviewCount": 298,
+      "lecturerId": "lec_001",
+      "categoryId": "cat_001",
+      "isFeatured": false,
+      "syllabus": [
+        { "title": "Node.js Fundamentals", "lessonCount": 10 },
+        { "title": "Express.js APIs", "lessonCount": 12 },
+        { "title": "MongoDB Integration", "lessonCount": 10 },
+        { "title": "Deployment & DevOps", "lessonCount": 8 }
+      ]
+    },
+    {
+      "id": "crs_007",
+      "title": "Android Development with Kotlin",
+      "slug": "android-development-kotlin",
+      "description": "Create modern Android applications using Kotlin. Learn Material Design, Room database, Retrofit networking, and publish apps to Google Play Store.",
+      "shortDescription": "Build Android apps with Kotlin and Material Design",
+      "thumbnailUrl": "/images/courses/android-kotlin.jpg",
+      "price": 74.99,
+      "currency": "USD",
+      "duration": "44 hours",
+      "level": "All Levels",
+      "enrollmentCount": 956,
+      "rating": 4.6,
+      "reviewCount": 267,
+      "lecturerId": "lec_003",
+      "categoryId": "cat_003",
+      "isFeatured": false,
+      "syllabus": [
+        { "title": "Kotlin Basics", "lessonCount": 10 },
+        { "title": "Android UI with Material", "lessonCount": 12 },
+        { "title": "Data Storage", "lessonCount": 10 },
+        { "title": "Play Store Publishing", "lessonCount": 6 }
+      ]
+    },
+    {
+      "id": "crs_008",
+      "title": "Advanced Machine Learning with TensorFlow",
+      "slug": "advanced-ml-tensorflow",
+      "description": "Deep dive into neural networks, deep learning, and advanced ML concepts using TensorFlow and Keras. Build image recognition, NLP, and recommendation systems.",
+      "shortDescription": "Master deep learning with TensorFlow and Keras",
+      "thumbnailUrl": "/images/courses/tensorflow-ml.jpg",
+      "price": 109.99,
+      "currency": "USD",
+      "duration": "62 hours",
+      "level": "Advanced",
+      "enrollmentCount": 634,
+      "rating": 4.9,
+      "reviewCount": 178,
+      "lecturerId": "lec_002",
+      "categoryId": "cat_002",
+      "isFeatured": true,
+      "syllabus": [
+        { "title": "Neural Networks", "lessonCount": 14 },
+        { "title": "Convolutional Networks", "lessonCount": 12 },
+        { "title": "NLP with RNNs", "lessonCount": 12 },
+        { "title": "Production ML Systems", "lessonCount": 10 }
+      ]
+    }
+  ],
+  "lecturers": [
+    {
+      "id": "lec_001",
+      "name": "Alex Morgan",
+      "title": "Senior Full-Stack Developer",
+      "bio": "Alex has 10+ years of experience building web applications at scale. Previously led engineering teams at tech startups and now passionate about teaching the next generation of developers.",
+      "avatarUrl": "/images/lecturers/alex-morgan.jpg",
+      "expertise": ["React", "Node.js", "TypeScript", "System Design"],
+      "courseCount": 2,
+      "studentCount": 2336,
+      "rating": 4.75,
+      "socialLinks": {
+        "twitter": "https://twitter.com/alexmorgan",
+        "linkedin": "https://linkedin.com/in/alexmorgan",
+        "github": "https://github.com/alexmorgan"
+      }
+    },
+    {
+      "id": "lec_002",
+      "name": "Dr. Sarah Chen",
+      "title": "Data Scientist & ML Engineer",
+      "bio": "Sarah holds a PhD in Computer Science and has worked on ML systems at major tech companies. She specializes in making complex data science concepts accessible to learners.",
+      "avatarUrl": "/images/lecturers/sarah-chen.jpg",
+      "expertise": ["Python", "Machine Learning", "Data Analysis", "TensorFlow"],
+      "courseCount": 2,
+      "studentCount": 2737,
+      "rating": 4.9,
+      "socialLinks": {
+        "twitter": "https://twitter.com/sarahchen",
+        "linkedin": "https://linkedin.com/in/sarahchen"
+      }
+    },
+    {
+      "id": "lec_003",
+      "name": "James Wilson",
+      "title": "Mobile Development Expert",
+      "bio": "James has published 20+ apps on both iOS and Android platforms. He loves sharing practical development techniques and helping students build portfolio-worthy projects.",
+      "avatarUrl": "/images/lecturers/james-wilson.jpg",
+      "expertise": ["Swift", "Kotlin", "iOS", "Android"],
+      "courseCount": 2,
+      "studentCount": 1848,
+      "rating": 4.65,
+      "socialLinks": {
+        "linkedin": "https://linkedin.com/in/jameswilson",
+        "github": "https://github.com/jameswilson"
+      }
+    },
+    {
+      "id": "lec_004",
+      "name": "Emily Rodriguez",
+      "title": "UX Designer & Design Educator",
+      "bio": "Emily is a product designer with experience at leading design agencies. She believes great design is about solving user problems elegantly and enjoys mentoring aspiring designers.",
+      "avatarUrl": "/images/lecturers/emily-rodriguez.jpg",
+      "expertise": ["UI Design", "UX Research", "Figma", "Design Systems"],
+      "courseCount": 1,
+      "studentCount": 1567,
+      "rating": 4.8,
+      "socialLinks": {
+        "twitter": "https://twitter.com/emilyrodriguez",
+        "dribbble": "https://dribbble.com/emilyrodriguez"
+      }
+    },
+    {
+      "id": "lec_005",
+      "name": "David Kim",
+      "title": "Digital Marketing Strategist",
+      "bio": "David has managed marketing campaigns with budgets over $1M and helped numerous businesses grow their online presence. He brings real-world insights to every lesson.",
+      "avatarUrl": "/images/lecturers/david-kim.jpg",
+      "expertise": ["SEO", "Social Media Marketing", "Google Ads", "Analytics"],
+      "courseCount": 1,
+      "studentCount": 743,
+      "rating": 4.6,
+      "socialLinks": {
+        "linkedin": "https://linkedin.com/in/davidkim",
+        "twitter": "https://twitter.com/davidkim"
+      }
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "tst_001",
+      "studentName": "Michael Torres",
+      "studentAvatar": "/images/students/michael-torres.jpg",
+      "courseId": "crs_001",
+      "courseTitle": "Complete React Developer Bootcamp",
+      "rating": 5,
+      "text": "This bootcamp completely changed my career. I went from knowing zero React to landing my dream job in just 3 months. The projects are practical and the explanations are crystal clear.",
+      "date": "2025-02-15"
+    },
+    {
+      "id": "tst_002",
+      "studentName": "Lisa Park",
+      "studentAvatar": "/images/students/lisa-park.jpg",
+      "courseId": "crs_002",
+      "courseTitle": "Python for Data Science and Machine Learning",
+      "rating": 5,
+      "text": "Dr. Chen has an incredible ability to break down complex topics. The machine learning section was challenging but so rewarding. Highly recommend for anyone wanting to get into data science!",
+      "date": "2025-02-10"
+    },
+    {
+      "id": "tst_003",
+      "studentName": "Robert Johnson",
+      "studentAvatar": "/images/students/robert-johnson.jpg",
+      "courseId": "crs_004",
+      "courseTitle": "UI/UX Design Masterclass",
+      "rating": 5,
+      "text": "As a developer, I wanted to improve my design skills. This course gave me the confidence to create beautiful interfaces. Emily's feedback on projects was invaluable.",
+      "date": "2025-01-28"
+    },
+    {
+      "id": "tst_004",
+      "studentName": "Amanda Foster",
+      "studentAvatar": "/images/students/amanda-foster.jpg",
+      "courseId": "crs_003",
+      "courseTitle": "iOS App Development with Swift",
+      "rating": 4,
+      "text": "Great course for beginners! I published my first app on the App Store after completing this. Would love more advanced topics in a follow-up course.",
+      "date": "2025-02-01"
+    },
+    {
+      "id": "tst_005",
+      "studentName": "Kevin Patel",
+      "studentAvatar": "/images/students/kevin-patel.jpg",
+      "courseId": "crs_008",
+      "courseTitle": "Advanced Machine Learning with TensorFlow",
+      "rating": 5,
+      "text": "This is the most comprehensive ML course I've taken. The deep learning projects are challenging and the explanations of neural networks finally made things click for me.",
+      "date": "2025-02-20"
+    },
+    {
+      "id": "tst_006",
+      "studentName": "Sophie Martinez",
+      "studentAvatar": "/images/students/sophie-martinez.jpg",
+      "courseId": "crs_005",
+      "courseTitle": "Digital Marketing Strategy",
+      "rating": 5,
+      "text": "David's real-world examples made all the difference. I implemented his SEO strategies for my business and saw a 40% increase in organic traffic within 2 months!",
+      "date": "2025-01-15"
+    },
+    {
+      "id": "tst_007",
+      "studentName": "Chris Anderson",
+      "studentAvatar": "/images/students/chris-anderson.jpg",
+      "courseId": "crs_006",
+      "courseTitle": "Full-Stack Node.js Development",
+      "rating": 4,
+      "text": "Solid course covering the full stack. The authentication and deployment sections were particularly helpful. Built three projects for my portfolio.",
+      "date": "2025-02-05"
+    }
+  ]
+}
