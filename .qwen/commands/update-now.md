@@ -35,6 +35,8 @@ cd impeccable && git pull origin main && cd ..
 
 If either pull fails (not a git repo, no remote, etc.), report the error but continue with available sources.
 
+**Early Exit Check**: If BOTH repos report "Already up to date", stop here and report that no sync is needed. Only proceed with Steps 2-6 if at least one repo had updates.
+
 ### Step 2: Verify Source Directories
 
 Check that source directories exist after pull:
@@ -84,6 +86,18 @@ Also copy any reference files from `impeccable/source/skills/frontend-design/ref
 
 Present a summary:
 
+**If both repos up to date (early exit):**
+```
+✓ No sync needed - all repos already up to date
+
+**Git Pull:**
+  - design-os: Already up to date
+  - impeccable: Already up to date
+
+No changes to sync. Commands and skills are current.
+```
+
+**If updates occurred:**
 ```
 ✓ Update complete!
 
